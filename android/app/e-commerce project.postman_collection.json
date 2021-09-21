@@ -1,0 +1,72 @@
+{
+	"info": {
+		"_postman_id": "7967fa8c-7867-4c1f-a036-6ecdba2b102c",
+		"name": "e-commerce project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"sara\",\r\n  \"email\": \"sarakisar@email.com\",\r\n  \"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://60cfbb144a030f0017f67f1d.mockapi.io/api/v1/users",
+					"protocol": "https",
+					"host": [
+						"60cfbb144a030f0017f67f1d",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://60cfbb144a030f0017f67f1d.mockapi.io/api/v1/users?email=sarakisar@email.com&password=password",
+					"protocol": "https",
+					"host": [
+						"60cfbb144a030f0017f67f1d",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "sarakisar@email.com"
+						},
+						{
+							"key": "password",
+							"value": "password"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

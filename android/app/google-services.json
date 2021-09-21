@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "127918584876",
+    "project_id": "ecommorancy",
+    "storage_bucket": "ecommorancy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:127918584876:android:99c4da0e5dec7aa81d0d89",
+        "android_client_info": {
+          "package_name": "bat.ecommerancy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "127918584876-ltphltk6pifr05toe9qlqd4uebp804cn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "bat.ecommerancy",
+            "certificate_hash": "0a37f350cf0d434e6aec1bf7eb6ec96d31d627f7"
+          }
+        },
+        {
+          "client_id": "127918584876-iib1m6c0clp4bmesmkmnas714p3rar6k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeCG3-BjdEyIMfzMWZEWRZnR1AdShJfyE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "127918584876-iib1m6c0clp4bmesmkmnas714p3rar6k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
