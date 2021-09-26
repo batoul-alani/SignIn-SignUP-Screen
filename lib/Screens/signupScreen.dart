@@ -12,7 +12,7 @@ bool validatorNewName=false;
 bool validatorNewEmail=false;
 bool validatorNewPassword=false;
 
-class signUpScreen extends StatelessWidget with ChangeNotifier{
+class signUpScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
