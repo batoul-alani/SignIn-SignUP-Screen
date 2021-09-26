@@ -6,7 +6,7 @@ import 'package:ecommerancy/routes/router.gr.dart';
 import 'package:provider/provider.dart';
 import 'package:ecommerancy/widgets/providerData.dart';
 
-class SignInScreen extends StatelessWidget with ChangeNotifier{
+class SignInScreen extends StatelessWidget {
   String? email;
   String? password;
   // var pattern =  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
