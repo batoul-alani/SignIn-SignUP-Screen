@@ -13,8 +13,6 @@ class SignInScreen extends StatelessWidget {
   String? email;
   String? password;
   // var pattern =  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-  bool validator = false;
-  bool validatorPassword = false;
 
   @override
   Widget build(BuildContext context) {
