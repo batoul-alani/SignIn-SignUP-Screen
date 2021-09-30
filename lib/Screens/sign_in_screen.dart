@@ -5,8 +5,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:ecommerancy/routes/router.gr.dart';
 import 'package:provider/provider.dart';
 import 'package:ecommerancy/widgets/providerData.dart';
+import 'package:ecommerancy/widgets/doWidget.dart';
+import 'package:ecommerancy/widgets/textFormField.dart';
 
 class SignInScreen extends StatelessWidget {
+  final _formKey=GlobalKey<FormState>();
   String? email;
   String? password;
   // var pattern =  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
@@ -18,16 +21,12 @@ class SignInScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Consumer<ProviderData>(
-        builder: (context,providerDate,child){
-        return LayoutBuilder(
-          builder: (BuildContext context,BoxConstraints viewportConstraints){
+          builder: (context,providerDate,child){
             return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: viewportConstraints.maxHeight,
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(20.0),
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(20.0, 80.0, 20.0, 20.0),
+                child: Form(
+                  key: _formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -38,7 +37,7 @@ class SignInScreen extends StatelessWidget {
                           TextWidget(textColor: Colors.black, textContent: 'Welcome,', textSize: 25.0, weight: FontWeight.w900,),
                           textButton( childy: TextWidget(textColor: basicColor, textContent: 'Sign Up', textSize: 14.0,  weight: FontWeight.w200,),
                             onPressed: () {
-                                AutoRouter.of(context).push(SignUpScreen());
+                              AutoRouter.of(context).push(SignUpScreen());
                             },
                           ),
                         ],
@@ -48,51 +47,29 @@ class SignInScreen extends StatelessWidget {
                       TextWidget(textContent: 'Sign in to Continue', textColor: Colors.grey.withOpacity(0.9), textSize: 12.0,),
                       SizedBox(height: 25.0,),
 
-                      TextWidget(textColor: Colors.grey, textContent: 'Email', textSize: 12.0,),
-                      TextField(
-                        keyboardType: TextInputType.emailAddress,
-                        autofocus: true,
-                        cursorColor: basicColor,
-                        onChanged: (value) {
-                          email = value;
-                          if(email!.isEmpty||!email!.contains('@')||!email!.contains('.')){
-                            validator=true;
-                          }
-                          else{validator=false;}
-                          },
-                        decoration: InputDecoration(
-                          fillColor: basicColor,
-                          errorText: validator
-                              ? 'Email should have contain \'@\' and \'.\''
-                              : null,
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: basicColor,),
-                          ),
-                        ),
+                      TextForm(
+                        inputType: TextInputType.emailAddress,
+                        validatorFunction: (value){
+                          return(value==null || value.isEmpty || !value.contains('@') || !value.contains('.')?'Email Should contains \'@\' and \'.\' ':null);
+                        },
+                        label: 'Email',
+                        onChanged: (value){
+                          email=value;
+                        },
+                        obscureValue: false,
                       ),
                       SizedBox(height: 20.0,),
 
-                      TextWidget(textColor: Colors.grey, textContent: 'Password', textSize: 12.0,),
-                      TextField(
-                        keyboardType: TextInputType.visiblePassword,
-                        obscureText: true,
-                        cursorColor: basicColor,
-                        onChanged: (value) {
-                          password = value;
-                          if(password!.isEmpty||password!.length<8){
-                            validatorPassword=true; }
-                          else{validatorPassword=false;}
+                      TextForm(
+                        inputType: TextInputType.emailAddress,
+                        obscureValue: true,
+                        validatorFunction: (value){
+                          return(value==null || value.isEmpty || value.length<8?'Password Should contains at least 8 characters ':null);
                         },
-                        decoration: InputDecoration(
-                          errorText: validatorPassword
-                              ? 'password should contain at least 8 charectars'
-                              : null,
-                          fillColor: basicColor,
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: basicColor,),
-                          ),
-                        ),
-                      ),
+                        label: 'Password',
+                        onChanged: (value){
+                          password=value;
+                        },),
                       SizedBox(height: 10.0,),
 
                       Row(
@@ -109,8 +86,10 @@ class SignInScreen extends StatelessWidget {
                         backgroundColor: basicColor,
                         childy: textButton(childy: TextWidget(textColor: Colors.white.withOpacity(0.8), textContent: 'SIGN IN', textSize: 15.0, weight: FontWeight.w400,),
                           onPressed: () {
-                            if(validator==false && validatorPassword==false) {
-                             Provider.of<ProviderData>(context,listen: false).login(email, password,context);}
+                            if(_formKey.currentState!.validate()){
+                              Provider.of<ProviderData>(
+                                  context, listen: false).login(email, password, context);
+                            }
                           },
                         ),
                       ),
@@ -125,7 +104,7 @@ class SignInScreen extends StatelessWidget {
                         paddingValue: 15.0,
                         childy: textButton(buttonColor: Colors.white,
                           onPressed: () {
-                              Provider.of<ProviderData>(context,listen:false).loginFB(context);
+                            Provider.of<ProviderData>(context,listen:false).loginFB(context);
                           },
                           childy: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -145,7 +124,7 @@ class SignInScreen extends StatelessWidget {
                       DoWidget(paddingValue: 15.0,
                         backgroundColor: Colors.white,
                         childy: textButton(buttonColor: Colors.white, onPressed: () {
-                            Provider.of<ProviderData>(context,listen: false).loginGoogle(context);
+                          Provider.of<ProviderData>(context,listen: false).loginGoogle(context);
                         },
                           childy: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -164,8 +143,8 @@ class SignInScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            );},
-        );}
+            );
+          }
       ),
     );
   }
