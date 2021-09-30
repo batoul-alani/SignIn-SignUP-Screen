@@ -5,8 +5,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:ecommerancy/routes/router.gr.dart';
 import 'package:provider/provider.dart';
 import 'package:ecommerancy/widgets/providerData.dart';
-import 'package:ecommerancy/widgets/doWidget.dart';
 import 'package:ecommerancy/widgets/textFormField.dart';
+import 'package:ecommerancy/widgets/doWidget.dart';
 
 class SignInScreen extends StatelessWidget {
   final _formKey=GlobalKey<FormState>();
