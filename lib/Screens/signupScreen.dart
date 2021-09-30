@@ -4,110 +4,162 @@ import 'package:auto_route/auto_route.dart';
 import 'package:provider/provider.dart';
 import 'package:ecommerancy/widgets/providerData.dart';
 import 'package:ecommerancy/widgets/doWidget.dart';
-import 'package:ecommerancy/widgets/textFormField.dart';
 
 String? newEmail;
 String? newPassword;
 String? newName;
 
-class signUpScreen extends StatelessWidget {
-  final _formKey=GlobalKey<FormState>();
+bool validatorNewName=false;
+bool validatorNewEmail=false;
+bool validatorNewPassword=false;
+
+class signUpScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      appBar:AppBar(
-        elevation: 0.0,
         backgroundColor: Colors.white,
-        leading: IconButton(
-            icon: Icon(Icons.arrow_back, size: 20.0,color: Colors.black,),
-            onPressed: () {
-              var router = AutoRouter.of(context);
-              router.pop();
-            }),
-      ),
-      backgroundColor: Colors.white,
-      body: Consumer<ProviderData>(
-          builder: (context,providerDate,child) {
-            return SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                 
-                  Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
+        body: Consumer<ProviderData>(
+        builder: (context,providerDate,child) {
+          return LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints viewportConstraints) {
+                return SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: viewportConstraints.maxHeight,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        SizedBox(height: 35.0,),
+                        Row(
                           children: [
-                            TextWidget(textContent: 'Sign Up', textSize: 25.0, weight: FontWeight.w900, textColor: Colors.black,),
-                            SizedBox(height: 45.0,),
-
-                            TextForm(
-                              inputType: TextInputType.name,
-                              validatorFunction: (value) {
-                                return(value == null || value.isEmpty
-                                    ? 'Please Enter The UserName'
-                                    : null);
-                              },
-                              label: 'Name',
-                              onChanged: (value){
-                                newName=value;
-                              },
-                              obscureValue: false,
-                            ),
-                            SizedBox(height: 20.0,),
-
-                            TextForm(
-                              inputType: TextInputType.emailAddress,
-                              validatorFunction: (value){
-                                return(value==null || value.isEmpty || !value.contains('@') || !value.contains('.')?'Email Should contains \'@\' and \'.\' ':null);
-                              },
-                              label: 'Email',
-                              onChanged: (value){
-                                newEmail=value;
-                              },
-                              obscureValue: false,
-                            ),
-                            SizedBox(height: 20.0,),
-
-                            TextForm(
-                              inputType: TextInputType.visiblePassword,
-                              obscureValue: true,
-                              validatorFunction: (value){
-                                return(value==null || value.isEmpty || value.length<8?'Password Should contains at least 8 characters ':null);
-                              },
-                              label: 'Password',
-                              onChanged: (value){
-                                newPassword=value;
-                              },),
-                            SizedBox(height: 35.0,),
-
-                            DoWidget(backgroundColor: basicColor,
-                              paddingValue: 0.0,
-                              childy: textButton(
-                                childy: TextWidget(textContent: 'SIGN UP',
-                                  textColor: Colors.white.withOpacity(0.8),
-                                  textSize: 15.0,
-                                  weight: FontWeight.w400,),
-                                onPressed: () async{
-                                  if(_formKey.currentState!.validate()){
-                                    await Provider.of<ProviderData>(
-                                        context, listen: false).register(
-                                        context, newName, newEmail,
-                                        newPassword);
-                                  }
-                                },
-                              ),),
+                            IconButton(
+                                icon: Icon(Icons.arrow_back, size: 20.0,),
+                                onPressed: () {
+                                  var router = AutoRouter.of(context);
+                                  router.pop();
+                                })
                           ],
                         ),
-                      )),
-                ],
-              ),
-            );
+                        SizedBox(height: 50.0,),
+
+                        Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                TextWidget(textContent: 'Sign Up', textSize: 25.0, weight: FontWeight.w900, textColor: Colors.black,),
+                                SizedBox(height: 45.0,),
+
+                                TextWidget(textContent: 'Name', textSize: 12.0, textColor: Colors.grey,),
+                                TextField(
+                                  keyboardType: TextInputType.name,
+                                  autofocus: true,
+                                  cursorColor: basicColor,
+                                  decoration: InputDecoration(
+                                    fillColor: basicColor,
+                                    errorText: validatorNewName
+                                        ? 'Please Enter The UserName'
+                                        : null,
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: basicColor,),
+                                    ),
+                                  ),
+                                  onChanged: (value) {
+                                    newName = value;
+                                    if (newName!.length < 1) {
+                                      validatorNewName = true;
+                                    }
+                                    else {
+                                      validatorNewName = false;
+                                    }
+                                  },
+                                ),
+                                SizedBox(height: 20.0,),
+
+                                TextWidget(textContent: 'Email', textSize: 12.0, textColor: Colors.grey,),
+                                TextField(
+                                  keyboardType: TextInputType.emailAddress,
+                                  autofocus: true,
+                                  cursorColor: basicColor,
+                                  decoration: InputDecoration(
+                                    errorText: validatorNewEmail
+                                        ? 'Email should have contain \'@\' and \'.\''
+                                        : null,
+                                    fillColor: basicColor,
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: basicColor,),
+                                    ),
+                                  ),
+                                  onChanged: (value) {
+                                    newEmail = value;
+                                    if (newEmail!.isEmpty ||
+                                        !newEmail!.contains('@') ||
+                                        !newEmail!.contains('.')) {
+                                      validatorNewEmail = true;
+                                    }
+                                    else {
+                                      validatorNewEmail = false;
+                                    }
+                                  },
+                                ),
+                                SizedBox(height: 20.0,),
+
+                                TextWidget(textContent: 'Password', textSize: 12.0, textColor: Colors.grey,),
+                                TextField(
+                                  keyboardType: TextInputType.visiblePassword,
+                                  obscureText: true,
+                                  cursorColor: basicColor,
+                                  decoration: InputDecoration(
+
+                                    fillColor: basicColor,
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: basicColor,),
+                                    ),
+                                  ),
+                                  onChanged: (value) {
+                                    newPassword = value;
+                                    if (newPassword!.isEmpty ||
+                                        newPassword!.length < 8) {
+                                      validatorNewPassword = true;
+                                    }
+                                    else {
+                                      validatorNewPassword = false;
+                                    }
+                                  },
+                                ),
+                                SizedBox(height: 35.0,),
+
+                                DoWidget(backgroundColor: basicColor,
+                                  paddingValue: 0.0,
+                                  childy: textButton(
+                                    childy: TextWidget(textContent: 'SIGN UP',
+                                      textColor: Colors.white.withOpacity(0.8),
+                                      textSize: 15.0,
+                                      weight: FontWeight.w400,),
+                                    onPressed: () {
+                                      if (validatorNewName == false &&
+                                          validatorNewEmail == false &&
+                                          validatorNewPassword == false)
+                                        Provider.of<ProviderData>(
+                                            context, listen: false).register(
+                                            context, newName, newEmail,
+                                            newPassword);
+                                    },
+                                  ),),
+                              ],
+                            )),
+                      ],
+                    ),
+                  ),
+                );
+              }
+          );
           }
-      ),
-    );
+        ),
+      );
   }
 }
-
