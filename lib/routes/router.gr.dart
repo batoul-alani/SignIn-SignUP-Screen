@@ -4,57 +4,57 @@
 // AutoRouteGenerator
 // **************************************************************************
 
-import 'package:auto_route/auto_route.dart' as _i1;
-import 'package:flutter/material.dart' as _i2;
+import 'package:auto_route/auto_route.dart' as _i4;
+import 'package:flutter/material.dart' as _i5;
 
-import '../Screens/home_screen.dart' as _i5;
-import '../Screens/sign_in_screen.dart' as _i3;
-import '../Screens/signupScreen.dart' as _i4;
+import '../Screens/home_screen.dart' as _i3;
+import '../Screens/sign_in_screen.dart' as _i1;
+import '../Screens/signupScreen.dart' as _i2;
 
-class AppRouter extends _i1.RootStackRouter {
-  AppRouter([_i2.GlobalKey<_i2.NavigatorState>? navigatorKey])
+class AppRouter extends _i4.RootStackRouter {
+  AppRouter([_i5.GlobalKey<_i5.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i1.PageFactory> pagesMap = {
-    SignInScreen.name: (routeData) => _i1.MaterialPageX<dynamic>(
-        routeData: routeData,
-        builder: (_) {
-          return _i3.SignInScreen();
-        }),
-    SignUpScreen.name: (routeData) => _i1.MaterialPageX<dynamic>(
-        routeData: routeData,
-        builder: (_) {
-          return _i4.signUpScreen();
-        }),
-    HomeScreen.name: (routeData) => _i1.MaterialPageX<dynamic>(
-        routeData: routeData,
-        builder: (_) {
-          return _i5.HomeScreen();
-        })
+  final Map<String, _i4.PageFactory> pagesMap = {
+    SignInScreen.name: (routeData) {
+      return _i4.MaterialPageX<dynamic>(
+          routeData: routeData, child: _i1.SignInScreen());
+    },
+    SignUpScreen.name: (routeData) {
+      return _i4.MaterialPageX<dynamic>(
+          routeData: routeData, child: _i2.signUpScreen());
+    },
+    HomeScreen.name: (routeData) {
+      return _i4.MaterialPageX<dynamic>(
+          routeData: routeData, child: _i3.HomeScreen());
+    }
   };
 
   @override
-  List<_i1.RouteConfig> get routes => [
-        _i1.RouteConfig(SignInScreen.name, path: '/'),
-        _i1.RouteConfig(SignUpScreen.name, path: '/sign-up-screen'),
-        _i1.RouteConfig(HomeScreen.name, path: '/home-screen')
+  List<_i4.RouteConfig> get routes => [
+        _i4.RouteConfig(SignInScreen.name, path: '/'),
+        _i4.RouteConfig(SignUpScreen.name, path: '/sign-up-screen'),
+        _i4.RouteConfig(HomeScreen.name, path: '/home-screen')
       ];
 }
 
-class SignInScreen extends _i1.PageRouteInfo {
+/// generated route for [_i1.SignInScreen]
+class SignInScreen extends _i4.PageRouteInfo<void> {
   const SignInScreen() : super(name, path: '/');
 
   static const String name = 'SignInScreen';
 }
 
-class SignUpScreen extends _i1.PageRouteInfo {
+/// generated route for [_i2.signUpScreen]
+class SignUpScreen extends _i4.PageRouteInfo<void> {
   const SignUpScreen() : super(name, path: '/sign-up-screen');
 
   static const String name = 'SignUpScreen';
 }
 
-class HomeScreen extends _i1.PageRouteInfo {
+/// generated route for [_i3.HomeScreen]
+class HomeScreen extends _i4.PageRouteInfo<void> {
   const HomeScreen() : super(name, path: '/home-screen');
 
   static const String name = 'HomeScreen';

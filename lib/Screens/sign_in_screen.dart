@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import '../widgets/constants.dart';
-import 'package:auto_route/auto_route.dart';
-import 'package:ecommerancy/routes/router.gr.dart';
+import '../widgets/textButton.dart';
 import 'package:provider/provider.dart';
 import 'package:ecommerancy/widgets/providerData.dart';
 import 'package:ecommerancy/widgets/textFormField.dart';
 import 'package:ecommerancy/widgets/doWidget.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:ecommerancy/routes/router.gr.dart';
+import 'package:ecommerancy/widgets/textWidget.dart';
 
 class SignInScreen extends StatelessWidget {
   final _formKey=GlobalKey<FormState>();
   String? email;
   String? password;
-  // var pattern =  r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
 
   @override
   Widget build(BuildContext context) {

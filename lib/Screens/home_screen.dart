@@ -1,7 +1,8 @@
 import 'package:ecommerancy/widgets/providerData.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../widgets/constants.dart';
+import '../widgets/textButton.dart';
+import 'package:ecommerancy/widgets/textWidget.dart';
 
 class HomeScreen extends StatelessWidget {
   @override

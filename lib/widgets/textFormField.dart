@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import 'textButton.dart';
 
 class TextForm extends StatelessWidget {
   final String? Function(String?)? validatorFunction;
   final void Function(String)? onChanged;
   final bool obscureValue;
   final String? label;
-  TextInputType? inputType;
+  final TextInputType? inputType;
 
   TextForm({required this.validatorFunction,required this.label,required this.obscureValue,required this.inputType,required this.onChanged});
   @override

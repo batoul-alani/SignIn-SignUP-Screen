@@ -1,10 +1,10 @@
-import 'package:ecommerancy/routes/router.gr.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'widgets/providerData.dart';
+import 'routes/router.gr.dart';
 
 final _appRouter=AppRouter();
 
