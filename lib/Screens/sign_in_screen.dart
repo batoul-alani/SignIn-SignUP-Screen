@@ -13,6 +13,7 @@ class SignInScreen extends StatelessWidget {
   final _formKey=GlobalKey<FormState>();
   String? email;
   String? password;
+  String? a;
 
   @override
   Widget build(BuildContext context) {
