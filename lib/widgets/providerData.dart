@@ -9,6 +9,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:convert';
 import 'package:ecommerancy/routes/router.gr.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:ecommerancy/widgets/modelData.dart';
 
 String status='login s';
 //Map userData={};
@@ -39,13 +40,12 @@ class ProviderData extends ChangeNotifier{
   }
 
   Future login(emailLog,passwordLog,BuildContext context) async{
-    var _request = http.Request('GET', Uri.parse('https://60cfbb144a030f0017f67f1d.mockapi.io/api/v1/users?email=$emailLog&password=$passwordLog'));
-    http.StreamedResponse _response = await _request.send();
+    //loginModel(emailLog, passwordLog);
 
     //Map _userData;
     notifyListeners();
-    if (_response.statusCode == 200) {
-      await _response.stream.bytesToString().then((value) {
+    if (loginModel(emailLog, passwordLog).response.statusCode == 200) {
+      await loginModel(emailLog, passwordLog).response.stream.bytesToString().then((value) {
         if(value=='[]'){
           status='Error: didn\'t find email or password, please try again or SIGN UP';
           _userData2={};
@@ -66,7 +66,7 @@ class ProviderData extends ChangeNotifier{
       });
     }
     else {
-      print(_response.reasonPhrase);
+      print(loginModel(emailLog, passwordLog).response.reasonPhrase);
       return status='Please Try Again';
     }
   }
