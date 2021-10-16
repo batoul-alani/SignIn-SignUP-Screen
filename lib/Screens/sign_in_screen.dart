@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import '../widgets/textButton.dart';
 import 'package:provider/provider.dart';
-import 'package:ecommerancy/widgets/providerData.dart';
+import '../viewModel/providerData.dart';
 import 'package:ecommerancy/widgets/textFormField.dart';
 import 'package:ecommerancy/widgets/doWidget.dart';
 import 'package:auto_route/auto_route.dart';

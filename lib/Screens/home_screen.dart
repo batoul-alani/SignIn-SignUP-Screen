@@ -1,4 +1,4 @@
-import 'package:ecommerancy/widgets/providerData.dart';
+import '../viewModel/providerData.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../widgets/textButton.dart';
