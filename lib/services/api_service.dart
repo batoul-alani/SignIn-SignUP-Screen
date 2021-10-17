@@ -7,41 +7,44 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-String S='';
+String status='';
 
 Map _uD={};
 Map get uD => _uD;
 set uD(Map b){
   _uD=b;
 }
-loginModel(emailLogModel,passwordLogModel,BuildContext context)async{
-  Map uD={};
+
+// User? _user;
+// User? get user=> _user;
+// set user(User? u){
+//   _user=u;
+// }
+
+loginModel(emailLogModel,passwordLogModel,BuildContext context) async{
   var _request = http.Request('GET', Uri.parse('https://60cfbb144a030f0017f67f1d.mockapi.io/api/v1/users?email=$emailLogModel&password=$passwordLogModel'));
   http.StreamedResponse _response = await _request.send();
   if(_response.statusCode==200){
     await _response.stream.bytesToString().then((value) {
       if(value=='[]'){
-        S='Error: didn\'t find email or password, please try again or SIGN UP';
+        status='Error: didn\'t find email or password, please try again or SIGN UP';
         _uD= {};
-        print(S);
-        print(value);
-        print('hello i am $_uD khkh');
       }
       else{
-        print(value);
-        S=('Successful LogIn');
+        status='Successful LogIn';
         _uD={'email':emailLogModel,'password':passwordLogModel};
-        print(S);
         AutoRouter.of(context).push(HomeScreen());
-        print('hello i am $_uD b');
       }
       uD=_uD;
-      print('this is my uD $uD');
+      print(value);
+      print(status);
+      print('User Information $uD');
     });
   }
   else {
     print(_response.reasonPhrase);
-    S='Please Try Again';
+    status='Please Try Again';
+    print(status);
   }
 }
 
@@ -49,22 +52,21 @@ loginFbModel(BuildContext context) async{
   try {
     final fb = await FacebookAuth.instance.login();
     if (fb.status == LoginStatus.success) {
-      //final _userData = await FacebookAuth.instance.getUserData();
       _uD = await FacebookAuth.instance.getUserData();
-      print(_uD);
       AutoRouter.of(context).push(HomeScreen());
     }
     uD=_uD;
+    print(uD);
   } catch(e){
     print(e);
   }
 }
-
-loginGoogleModel(BuildContext context)async{
+User? user;
+loginGoogleModel(BuildContext context) async{
   final FirebaseAuth auth=FirebaseAuth.instance;
   final GoogleSignIn googleSignIn=new GoogleSignIn();
   final GoogleSignInAccount? googleSignInAccount=await googleSignIn.signIn();
-  User? user;
+  User? _user;
   if(googleSignInAccount!=null){
     final GoogleSignInAuthentication googleSignInAuthentication=await googleSignInAccount.authentication;
     final AuthCredential credential=GoogleAuthProvider.credential(
@@ -73,19 +75,20 @@ loginGoogleModel(BuildContext context)async{
     );
     try{
       final authResult=await auth.signInWithCredential(credential);
-      user=authResult.user!;
-      assert(!user.isAnonymous);
+      _user=authResult.user!;
+      assert(!_user.isAnonymous);
       //assert(await user.getIdToken()!=null);
       User? currentUser= auth.currentUser;
-      assert(user.uid==currentUser!.uid);
-      print('user name: ${user.displayName}');
-      print('user email ${user.email}');
-      print('log in using google is ok');
+      assert(_user.uid==currentUser!.uid);
+      print('user name: ${_user.displayName}');
+      print('user email ${_user.email}');
+      print('log in using google success');
       AutoRouter.of(context).push(HomeScreen());
     }
     catch(e){
       print('Error occurred using Google Sign-In. Try again.');
     }
+    user=_user;
     return user;
   }
 }
@@ -127,10 +130,11 @@ registerModel(registerNameModel,registerEmailModel,registerPasswordModel,BuildCo
 logoutModel(BuildContext context) async{
   await FacebookAuth.instance.logOut();
   await GoogleSignIn().signOut();
+  user=null;
   var routes=AutoRouter.of(context);
   routes.push(SignInScreen());
   _uD={};
   uD=_uD;
   print(uD);
-  print('loged out');
+  print('logged out');
 }
