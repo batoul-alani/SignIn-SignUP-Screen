@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 String status='';
+String fromValue='';
 
 Map _uD={};
 Map get uD => _uD;
@@ -15,11 +16,79 @@ set uD(Map b){
   _uD=b;
 }
 
-// User? _user;
-// User? get user=> _user;
-// set user(User? u){
-//   _user=u;
-// }
+Map _categories={};
+Map get categories=>_categories;
+set categories(Map c){
+  _categories=c;
+}
+
+Map _products={};
+Map get products=> _products;
+set products(Map p){
+  _products=p;
+}
+
+Map _categoriesProduct={};
+Map get categoriesProduct=>_categoriesProduct;
+set categoriesProduct(Map cp){
+  _categoriesProduct=cp;
+}
+
+getProductsByCategoryModel(var categoryIndex) async{
+  var _request = http.Request('GET', Uri.parse('https://60cfbb144a030f0017f67f1d.mockapi.io/api/v1/categories/$categoryIndex/products'));
+  http.StreamedResponse _response = await _request.send();
+  if (_response.statusCode == 200) {
+    await _response.stream.bytesToString().then((value) {
+      var _productsInfo=json.decode(value);
+      int _length=_productsInfo.length;
+      for(int i=0;i<_length;i++){
+        _categoriesProduct[i]=_productsInfo[i];
+      }
+      categoriesProduct=_categoriesProduct;
+    });
+  }
+  else {
+  print(_response.reasonPhrase);
+  }
+}
+
+getCategoriesModel() async{
+  var _categoriesRequest = http.Request('GET', Uri.parse('https://60cfbb144a030f0017f67f1d.mockapi.io/api/v1/categories'));
+  http.StreamedResponse _categoriesResponse = await _categoriesRequest.send();
+  if (_categoriesResponse.statusCode == 200) {
+    await _categoriesResponse.stream.bytesToString().then((value) {
+      var categoriesInfo=json.decode(value);
+      int _length=categoriesInfo.length;
+      for (int i=0;i<_length;i++){
+        _categories[i]=categoriesInfo[i];
+      }
+      categories=_categories;
+    });
+  }
+  else {
+  print(_categoriesResponse.reasonPhrase);
+  }
+}
+
+getProductsModel()async{
+  var _request = http.Request('GET', Uri.parse('https://60cfbb144a030f0017f67f1d.mockapi.io/api/v1/products'));
+  http.StreamedResponse _response = await _request.send();
+
+  if (_response.statusCode == 200) {
+    await _response.stream.bytesToString().then((value) {
+      var productsInfo=json.decode(value);
+      int _length=productsInfo.length;
+      for (int i=0;i<_length;i++){
+        _products[i]=productsInfo[i];
+      }
+      products=_products;
+    });
+  }
+  else {
+    print(_response.reasonPhrase);
+  }
+
+}
 
 loginModel(emailLogModel,passwordLogModel,BuildContext context) async{
   var _request = http.Request('GET', Uri.parse('https://60cfbb144a030f0017f67f1d.mockapi.io/api/v1/users?email=$emailLogModel&password=$passwordLogModel'));
@@ -34,6 +103,12 @@ loginModel(emailLogModel,passwordLogModel,BuildContext context) async{
         status='Successful LogIn';
         _uD={'email':emailLogModel,'password':passwordLogModel};
         AutoRouter.of(context).push(HomeScreen());
+
+        var test1=jsonDecode(value)[0]['email'];
+        var test2=json.decode(value);
+
+        print(test2.length);
+        print(test1);
       }
       uD=_uD;
       print(value);
@@ -61,6 +136,7 @@ loginFbModel(BuildContext context) async{
     print(e);
   }
 }
+
 User? user;
 loginGoogleModel(BuildContext context) async{
   final FirebaseAuth auth=FirebaseAuth.instance;

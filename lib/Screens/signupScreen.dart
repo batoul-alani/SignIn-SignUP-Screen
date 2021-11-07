@@ -6,6 +6,7 @@ import '../viewModel/providerData.dart';
 import 'package:ecommerancy/widgets/doWidget.dart';
 import 'package:ecommerancy/widgets/textFormField.dart';
 import 'package:ecommerancy/widgets/textWidget.dart';
+import 'package:ecommerancy/main.dart';
 
 String? newEmail;
 String? newPassword;

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-Color basicColor=Color(0xFF00C569);
-
 class textButton extends StatelessWidget {
   final Color? buttonColor;
   final  onPressed;

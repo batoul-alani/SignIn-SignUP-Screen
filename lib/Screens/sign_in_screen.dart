@@ -8,12 +8,12 @@ import 'package:ecommerancy/widgets/doWidget.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:ecommerancy/routes/router.gr.dart';
 import 'package:ecommerancy/widgets/textWidget.dart';
+import 'package:ecommerancy/main.dart';
 
+String? email;
 class SignInScreen extends StatelessWidget {
   final _formKey=GlobalKey<FormState>();
-  String? email;
   String? password;
-  String? a;
 
   @override
   Widget build(BuildContext context) {

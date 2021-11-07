@@ -7,6 +7,7 @@ import 'viewModel/providerData.dart';
 import 'routes/router.gr.dart';
 
 final _appRouter=AppRouter();
+Color basicColor=Color(0xFF00C569);
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();

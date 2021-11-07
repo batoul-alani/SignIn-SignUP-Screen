@@ -6,67 +6,133 @@
 	},
 	"item": [
 		{
-			"name": "register",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"sara\",\r\n  \"email\": \"sarakisar@email.com\",\r\n  \"password\": \"password\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"sara\",\r\n  \"email\": \"sarakisar@email.com\",\r\n  \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}users",
+							"host": [
+								"{{baseUrl}}users"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "https://60cfbb144a030f0017f67f1d.mockapi.io/api/v1/users",
-					"protocol": "https",
-					"host": [
-						"60cfbb144a030f0017f67f1d",
-						"mockapi",
-						"io"
-					],
-					"path": [
-						"api",
-						"v1",
-						"users"
-					]
+				{
+					"name": "Login",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}users?email=sarakisar@email.com&password=545",
+							"host": [
+								"{{baseUrl}}users"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "sarakisar@email.com"
+								},
+								{
+									"key": "password",
+									"value": "545"
+								}
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "login",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://60cfbb144a030f0017f67f1d.mockapi.io/api/v1/users?email=sarakisar@email.com&password=password",
-					"protocol": "https",
-					"host": [
-						"60cfbb144a030f0017f67f1d",
-						"mockapi",
-						"io"
-					],
-					"path": [
-						"api",
-						"v1",
-						"users"
-					],
-					"query": [
-						{
-							"key": "email",
-							"value": "sarakisar@email.com"
-						},
-						{
-							"key": "password",
-							"value": "password"
+			"name": "Explore",
+			"item": [
+				{
+					"name": "Get categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}categories",
+							"host": [
+								"{{baseUrl}}categories"
+							]
 						}
-					]
+					},
+					"response": []
+				},
+				{
+					"name": "Get products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}products",
+							"host": [
+								"{{baseUrl}}products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get products by category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}categories/1/products",
+							"host": [
+								"{{baseUrl}}categories"
+							],
+							"path": [
+								"1",
+								"products"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://60cfbb144a030f0017f67f1d.mockapi.io/api/v1/"
 		}
 	]
 }
